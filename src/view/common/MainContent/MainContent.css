@@ -1,0 +1,9 @@
+.main-content{
+    /*padding: 20px;*/
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+}

@@ -1,0 +1,96 @@
+import { useState } from "react";
+
+type User = {
+    id: number;
+    name: string;
+    email: string;
+    role: "customer" | "organizer";
+};
+
+const sampleUsers: User[] = [
+    { id: 1, name: "Vinil Vidushanka", email: "vinil@example.com", role: "customer" },
+    { id: 2, name: "Sasha Fernando", email: "sasha@example.com", role: "organizer" },
+    { id: 3, name: "Kasun Perera", email: "kasun@example.com", role: "customer" },
+    { id: 4, name: "Nimali De Silva", email: "nimali@example.com", role: "organizer" },
+];
+
+export function Users() {
+    const [users, setUsers] = useState<User[]>(sampleUsers);
+    const [filter, setFilter] = useState<"all" | "customer" | "organizer">("all");
+
+    const handleDelete = (id: number) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+        if (confirmDelete) {
+            setUsers((prev) => prev.filter((user) => user.id !== id));
+        }
+    };
+
+    const filteredUsers = users.filter((user) =>
+        filter === "all" ? true : user.role === filter
+    );
+
+    return (
+        <div className="min-h-screen bg-gray-100 px-4 py-8">
+            <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
+                <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">👥 Manage Users</h1>
+
+                {/* Filter Tabs */}
+                <div className="flex justify-center mb-6 gap-4">
+                    {["all", "customer", "organizer"].map((type) => (
+                        <button
+                            key={type}
+                            className={`px-4 py-2 rounded-full border font-medium ${
+                                filter === type
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-white text-blue-600 border-blue-600 hover:bg-blue-50"
+                            }`}
+                            onClick={() => setFilter(type as any)}
+                        >
+                            {type.charAt(0).toUpperCase() + type.slice(1)}s
+                        </button>
+                    ))}
+                </div>
+
+                {/* User Table */}
+                <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-left border">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                        <tr>
+                            <th className="px-6 py-3">#</th>
+                            <th className="px-6 py-3">Name</th>
+                            <th className="px-6 py-3">Email</th>
+                            <th className="px-6 py-3">Role</th>
+                            <th className="px-6 py-3 text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {filteredUsers.map((user, idx) => (
+                            <tr key={user.id} className="bg-white border-b hover:bg-gray-50">
+                                <td className="px-6 py-4 font-medium text-gray-800">{idx + 1}</td>
+                                <td className="px-6 py-4">{user.name}</td>
+                                <td className="px-6 py-4">{user.email}</td>
+                                <td className="px-6 py-4 capitalize">{user.role}</td>
+                                <td className="px-6 py-4 text-center">
+                                    <button
+                                        onClick={() => handleDelete(user.id)}
+                                        className="text-red-600 hover:underline"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                        {filteredUsers.length === 0 && (
+                            <tr>
+                                <td colSpan={5} className="px-6 py-6 text-center text-gray-500">
+                                    No users found for selected role.
+                                </td>
+                            </tr>
+                        )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    );
+}
