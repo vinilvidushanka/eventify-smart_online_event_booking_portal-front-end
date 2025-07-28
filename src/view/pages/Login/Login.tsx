@@ -275,9 +275,21 @@ type FormData = {
     password: string;
 };
 
+type RegisterFormData = {
+    username: string;
+    email: string;
+    password: string;
+};
+
 export function Login() {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<FormData>();
+    const {
+        register: registerRegister,
+        handleSubmit: handleRegisterSubmit,
+        reset: resetRegisterForm,
+    } = useForm<RegisterFormData>();
+
     const [showRegister, setShowRegister] = useState(false);
 
     const authenticateUser = async (data: FormData) => {
@@ -306,26 +318,33 @@ export function Login() {
         }
     };
 
+    const registerUser = async (data: RegisterFormData) => {
+        try {
+            const dataToSend = { ...data, role: "customer" };
+            await backendApi.post("/auth/register", dataToSend);
+            alert("Registration successful! You can now sign in.");
+            setShowRegister(false);
+            resetRegisterForm();
+        } catch (error) {
+            console.error(error);
+            alert("Registration failed. Please try again.");
+        }
+    };
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 flex items-center justify-center px-4 py-12">
             <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 relative">
-                {/* Logo */}
                 <div className="flex justify-center mb-8">
                     <img src={logo} alt="Eventify Logo" className="h-16 w-auto" />
                 </div>
 
-                {/* Title */}
                 <h1 className="text-3xl font-extrabold text-center text-indigo-700 mb-6">
                     Welcome Back
                 </h1>
 
-                {/* Login Form */}
                 <form onSubmit={handleSubmit(authenticateUser)} className="space-y-6">
                     <div>
-                        <label
-                            htmlFor="username"
-                            className="block text-sm font-semibold text-indigo-600 mb-1"
-                        >
+                        <label htmlFor="username" className="block text-sm font-semibold text-indigo-600 mb-1">
                             Username or Email
                         </label>
                         <input
@@ -340,10 +359,7 @@ export function Login() {
                     </div>
 
                     <div>
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-semibold text-indigo-600 mb-1"
-                        >
+                        <label htmlFor="password" className="block text-sm font-semibold text-indigo-600 mb-1">
                             Password
                         </label>
                         <input
@@ -357,15 +373,11 @@ export function Login() {
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition-transform active:scale-95"
-                    >
+                    <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition-transform active:scale-95">
                         Sign In
                     </button>
                 </form>
 
-                {/* Go back and Register */}
                 <div className="mt-6 text-center text-sm text-indigo-600">
                     <button
                         onClick={() => navigate("/")}
@@ -373,9 +385,8 @@ export function Login() {
                     >
                         &larr; Back to Home
                     </button>
-
                     <p>
-                        Don&apos;t have an account?{" "}
+                        Don&apos;t have an account? {" "}
                         <button
                             onClick={() => setShowRegister(true)}
                             className="font-semibold underline hover:text-indigo-900"
@@ -402,22 +413,25 @@ export function Login() {
                             Register Now
                         </h2>
 
-                        <form className="space-y-6">
+                        <form className="space-y-6" onSubmit={handleRegisterSubmit(registerUser)}>
                             <input
                                 type="text"
                                 placeholder="Username"
+                                {...registerRegister("username")}
                                 className="w-full px-4 py-3 rounded-lg border border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm text-sm"
                                 required
                             />
                             <input
                                 type="email"
                                 placeholder="Email"
+                                {...registerRegister("email")}
                                 className="w-full px-4 py-3 rounded-lg border border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm text-sm"
                                 required
                             />
                             <input
                                 type="password"
                                 placeholder="Create a password"
+                                {...registerRegister("password")}
                                 className="w-full px-4 py-3 rounded-lg border border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm text-sm"
                                 required
                             />
@@ -442,4 +456,5 @@ export function Login() {
             )}
         </div>
     );
+
 }

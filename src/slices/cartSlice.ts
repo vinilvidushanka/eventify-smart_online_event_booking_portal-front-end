@@ -90,9 +90,13 @@ const cartSlice = createSlice({
         },
         removeTicketFromCart(state, action: PayloadAction<string>) {
             state.tickets = state.tickets.filter(item => item.tickets.id !== action.payload);
-        }
+        },
+
+        clearCart(state) {
+            state.tickets = [];
+        },
     }
 });
 
-export const { addTicketToCart, increaseQuantity, decreaseQuantity } = cartSlice.actions;
+export const { addTicketToCart, increaseQuantity, decreaseQuantity,clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

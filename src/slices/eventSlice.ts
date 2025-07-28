@@ -40,6 +40,20 @@ export const deleteEvent = createAsyncThunk("events/deleteEvent", async (id: str
     return id;
 });
 
+/*
+export const saveEvent = createAsyncThunk(
+    "events/saveEvent",
+    async (newEventData: EventData, thunkAPI) => {
+        try {
+            const response = await backendApi.post("/events/save", newEventData);
+            return response.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response?.data?.message || "Failed to save event");
+        }
+    }
+);
+*/
+
 export const saveEvent = createAsyncThunk(
     "events/saveEvent",
     async (newEventData: EventData, thunkAPI) => {

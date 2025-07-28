@@ -7,6 +7,7 @@ import {Contact} from "../../pages/contact/Contact.tsx";
 import {TicketCart} from "../../pages/TicketCart/TicketCart.tsx";
 import {Users} from "../../pages/Users/Users.tsx";
 import {ConcertsManage} from "../../pages/ConcertsManage/ConcertsManage.tsx";
+import {Payment} from "../../pages/Payment/Payment.tsx";
 export function MainContent() {
     return (
         <section>
@@ -19,6 +20,7 @@ export function MainContent() {
                     <Route path="/shopping-cart" element={<TicketCart  />}></Route>
                     <Route path="/users" element={<Users />}></Route>
                     <Route path="/concerts-manage" element={<ConcertsManage />}></Route>
+                    <Route path="/payment" element={<Payment />}></Route>
                 </Routes>
             </div>
         </section>
