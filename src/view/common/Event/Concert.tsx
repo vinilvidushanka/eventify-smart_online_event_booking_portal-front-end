@@ -22,35 +22,6 @@ export function Concert({data}:TicketProps) {
     }
 
     let image=images [`../../../assets/concerts/${data.image}`]
-    /*return (
-        <div className="w-auto h-auto bg-blue-300 mr-2 mb-2 p-4 flex justify-center items-center shadow-xl rounded-xl shadow-transition-transform duration-200 hover:scale-105">
-            <div>
-                <img className="h-[120px] w-[120px] rounded-xl"  src={image}/>
-                <div className="text-center">
-                    <p className="text-sm font-semibold text-black m-3">{data.title}</p>
-                    <p className="text-sm font-semibold text-black m-3">{data.description}</p>
-                    <p className="text-sm font-semibold text-black m-3">{data.venue}</p>
-                    <p className="text-sm font-semibold text-black m-3">{data.date}</p>
-                    <p className="text-sm font-semibold text-black m-3">{data.time}</p>
-                    <p className="text-xs text-black mb-2">{data.price}<small className="text-xs text-black mb-2 pl-1">{data.currency}</small></p>
-
-                    {
-                        ticket ? (
-                            <ModifyCart data={{product:data}}/>
-
-                        ):(
-                            <button className="bg-white font-bold text-blue-500 text-xs px-3 py-1 rounded-full hover:bg-blue-950 hover:text-white transition cursor-pointer" onClick={addToCart}>
-                                Add to Cart
-                            </button>
-                        )
-                    }
-
-
-                </div>
-            </div>
-
-        </div>
-    );*/
 
     return (
         <div className="w-80 bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer">

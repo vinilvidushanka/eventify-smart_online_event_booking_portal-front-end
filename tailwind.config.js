@@ -1,7 +1,8 @@
+/*
 export default {
     content:[
         "./index.html",
-        "./src/**/*.{js,jsx,ts,tsx}",
+        "./src/!**!/!*.{js,jsx,ts,tsx}",
     ],
     theme: {
         extend: {},
@@ -10,3 +11,58 @@ export default {
         require('tailwind-scrollbar')
     ],
 }
+module.exports = {
+    theme: {
+        extend: {
+            colors: {
+                // override with safe hex/rgb colors instead of `oklch()`
+                blue: {
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    200: '#bfdbfe',
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#3b82f6',
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                    800: '#1e40af',
+                    900: '#1e3a8a',
+                },
+                // add others as needed
+            },
+        },
+    },
+};
+*/
+
+// tailwind.config.js
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+    content: [
+        "./index.html",
+        "./src/**/*.{js,jsx,ts,tsx}",
+    ],
+    theme: {
+        extend: {
+            colors: {
+                blue: {
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    200: '#bfdbfe',
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#3b82f6',
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                    800: '#1e40af',
+                    900: '#1e3a8a',
+                },
+                // add other colors if needed
+            },
+        },
+    },
+    plugins: [
+        require('tailwind-scrollbar')
+    ],
+};

@@ -100,6 +100,7 @@ export function Users() {
             <div className="max-w-6xl mx-auto">
                 <h1 className="text-4xl font-bold mb-6 text-center text-blue-800">👥 User Management</h1>
 
+
                 {/* Filter Tabs */}
                 <div className="flex justify-center mb-8 gap-4 flex-wrap">
                     {["all", "customer", "organizer"].map((type) => (
@@ -168,6 +169,25 @@ export function Users() {
                         ➕ Save User
                     </button>
                 </div>
+
+                <div className="flex justify-center flex-wrap gap-6 text-sm mb-8">
+                    <div className="bg-white/60 backdrop-blur-md px-6 py-3 rounded-2xl text-green-700 font-semibold shadow-md hover:shadow-lg transition-all border border-green-200 flex items-center gap-2">
+                        <span className="text-xl">👤</span>
+                        <span>Customers</span>
+                        <span className="ml-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold">
+            {users.filter(u => u.role === "customer").length}
+        </span>
+                    </div>
+                    <div className="bg-white/60 backdrop-blur-md px-6 py-3 rounded-2xl text-purple-700 font-semibold shadow-md hover:shadow-lg transition-all border border-purple-200 flex items-center gap-2">
+                        <span className="text-xl">🎤</span>
+                        <span>Organizers</span>
+                        <span className="ml-2 bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-bold">
+            {users.filter(u => u.role === "organizer").length}
+        </span>
+                    </div>
+                </div>
+
+
 
                 {/* User List */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
